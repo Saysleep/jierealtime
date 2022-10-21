@@ -27,9 +27,9 @@ public class OdsMesProductionProdlineGroup {
         ));
         env.setStateBackend(new HashMapStateBackend());
         env.getCheckpointConfig().setCheckpointStorage(
-                "hdfs://10.0.0.14:8020/ck/ods_mes_production_prodline_group"
+                "hdfs://10.0.0.50:8020/ck/ods_mes_production_prodline_group"
         );
-        System.setProperty("HADOOP_USER_NAME", "jie");
+        System.setProperty("HADOOP_USER_NAME", "root");
 
         //TODO 3. 利用FlinkCDC读取MES数据并用FlinkSql封装成动态表
         String sourceSql = "" +
