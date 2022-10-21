@@ -27,19 +27,85 @@ public class example {
         ));
         env.setStateBackend(new HashMapStateBackend());
         env.getCheckpointConfig().setCheckpointStorage(
-                "hdfs://10.0.0.14:8020/ck/"
+                "hdfs://10.0.0.14:8020/ck/ods_mes_production_prodline_calendar"
         );
         System.setProperty("HADOOP_USER_NAME", "jie");
 
         //TODO 3. 利用FlinkCDC读取MES数据并用FlinkSql封装成动态表
-        String sourceSql = "";
+        String sourceSql = "" +
+                "CREATE TABLE ods_mes_production_prodline_calendar ( " +
+                "CREATED_BY INT ," +
+                "CREATION_DATE TIMESTAMP ," +
+                "LAST_UPDATED_BY INT ," +
+                "LAST_UPDATE_DATE TIMESTAMP ," +
+                "LAST_UPDATE_LOGIN INT ," +
+                "CALENDAR_ID INT ," +
+                "CALENDAR_TYPE STRING ," +
+                "DESCRIPTION STRING ," +
+                "PROD_LINE_ID INT ," +
+                "ENABLE_FLAG STRING ," +
+                "PLANT_ID INT ," +
+                "CALENDAR_CODE STRING ," +
+                "CID INT" +
+                ") WITH ( " +
+                " 'connector' = 'oracle-cdc', " +
+                " 'hostname' = '172.16.10.57', " +
+                " 'port' = '1521', " +
+                " 'username' = 'hcms', " +
+                " 'password' = 'hcmsprod', " +
+                " 'database-name' = 'MESPROD', " +
+                " 'schema-name' = 'HCMS'," +
+                " 'table-name' = 'HCM_CALENDAR', " +
+                " 'scan.startup.mode' = 'latest-offset'," +
+                "'debezium.log.mining.strategy' = 'online_catalog'," +
+                "'debezium.log.mining.continuous.mine' = 'true'" +
+                ")";
         tableEnv.executeSql(sourceSql);
 
         //TODO 4. 读取doris的表信息到临时表中形成动态表
-        String destinationSql = "";
+        String destinationSql = "CREATE TABLE doris_ods_mes_production_prodline_calendar (\n" +
+                "calendar_id decimal(27,3)," +
+                "created_by double," +
+                "creation_date TIMESTAMP," +
+                "last_updated_by double," +
+                "last_update_date TIMESTAMP," +
+                "last_update_login double," +
+                "calendar_type string," +
+                "description string," +
+                "prod_line_id double," +
+                "enable_flag string," +
+                "plant_id double," +
+                "calendar_code string," +
+                "cid double," +
+                "update_datetime TIMESTAMP" +
+                "    ) \n" +
+                "    WITH (\n" +
+                "      'connector' = 'doris',\n" +
+                "      'fenodes' = '10.0.0.50:8030',\n" +
+                "      'table.identifier' = 'test_db.ods_mes_production_prodline_calendar',\n" +
+                "       'sink.batch.size' = '2',\n" +
+                "       'sink.batch.interval'='1',\n" +
+                "      'username' = 'root',\n" +
+                "      'password' = '000000'\n" +
+                ")";
         tableEnv.executeSql(destinationSql);
 
         //TODO 5. 将查询的结果插入到doris中（流式插入）
-        tableEnv.executeSql("");
+        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_calendar select " +
+                "CALENDAR_ID,\n" +
+                "CREATED_BY,\n" +
+                "CREATION_DATE,\n" +
+                "LAST_UPDATED_BY,\n" +
+                "LAST_UPDATE_DATE,\n" +
+                "LAST_UPDATE_LOGIN,\n" +
+                "CALENDAR_TYPE,\n" +
+                "DESCRIPTION,\n" +
+                "PROD_LINE_ID,\n" +
+                "ENABLE_FLAG,\n" +
+                "PLANT_ID,\n" +
+                "CALENDAR_CODE,\n" +
+                "CID," +
+                "CURRENT_TIMESTAMP from ods_mes_production_prodline_calendar");
+
     }
 }
