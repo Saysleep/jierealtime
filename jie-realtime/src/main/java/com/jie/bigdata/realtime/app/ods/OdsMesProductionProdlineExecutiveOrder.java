@@ -80,7 +80,7 @@ public class OdsMesProductionProdlineExecutiveOrder {
                 " 'database-name' = 'MESPROD', " +
                 " 'schema-name' = 'HCMS'," +
                 " 'table-name' = 'HME_EXECUTIVE_ORDER', " +
-                " 'scan.startup.mode' = 'initial'," +
+                " 'scan.startup.mode' = 'latest-offset'," +
                 "'debezium.log.mining.strategy' = 'online_catalog'," +
                 "'debezium.log.mining.continuous.mine' = 'true'" +
                 ")";
