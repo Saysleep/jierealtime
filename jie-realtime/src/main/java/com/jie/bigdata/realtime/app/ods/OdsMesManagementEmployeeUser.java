@@ -82,7 +82,7 @@ public class OdsMesManagementEmployeeUser {
                 " 'database-name' = 'MESPROD', " +
                 " 'schema-name' = 'HCMS'," +
                 " 'table-name' = 'HFWK_USERS', " +
-                " 'scan.startup.mode' = 'initial'," +
+                " 'scan.startup.mode' = 'latest-offset'," +
                 "'debezium.log.mining.strategy' = 'online_catalog'," +
                 "'debezium.log.mining.continuous.mine' = 'true'" +
                 ")";

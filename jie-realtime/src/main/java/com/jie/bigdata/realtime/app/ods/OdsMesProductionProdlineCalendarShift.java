@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
-public class OdsMesProductionProdlineCalendar {
+public class OdsMesProductionProdlineCalendarShift {
     public static void main(String[] args) {
         // TODO 1. 环境准备
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -27,26 +27,32 @@ public class OdsMesProductionProdlineCalendar {
         ));
         env.setStateBackend(new HashMapStateBackend());
         env.getCheckpointConfig().setCheckpointStorage(
-                "hdfs://10.0.0.14:8020/ck/ods_mes_production_prodline_calendar"
+                "hdfs://10.0.0.14:8020/ck/ods_mes_production_prodline_calendar_shift"
         );
         System.setProperty("HADOOP_USER_NAME", "jie");
 
         //TODO 3. 利用FlinkCDC读取MES数据并用FlinkSql封装成动态表
         String sourceSql = "" +
                 "CREATE TABLE ods_mes_production_prodline_calendar ( " +
-                "CREATED_BY INT ," +
-                "CREATION_DATE TIMESTAMP ," +
-                "LAST_UPDATED_BY INT ," +
-                "LAST_UPDATE_DATE TIMESTAMP ," +
-                "LAST_UPDATE_LOGIN INT ," +
-                "CALENDAR_ID INT ," +
-                "CALENDAR_TYPE STRING ," +
-                "DESCRIPTION STRING ," +
-                "PROD_LINE_ID INT ," +
-                "ENABLE_FLAG STRING ," +
-                "PLANT_ID INT ," +
-                "CALENDAR_CODE STRING ," +
-                "CID INT" +
+                "CREATED_BY         INT," +
+                "CREATION_DATE      TIMESTAMP," +
+                "LAST_UPDATED_BY    INT," +
+                "LAST_UPDATE_DATE   TIMESTAMP," +
+                "LAST_UPDATE_LOGIN  INT," +
+                "CALENDAR_SHIFT_ID  INT," +
+                "CALENDAR_ID        INT," +
+                "CALENDAR_DAY       TIMESTAMP," +
+                "SHIFT_CODE         STRING," +
+                "ENABLE_FLAG        STRING," +
+                "SHIFT_START_TIME   TIMESTAMP," +
+                "SHIFT_END_TIME     TIMESTAMP," +
+                "BREAK_TIME         INT," +
+                "ACTIVITY           INT," +
+                "REPLENISH_CAPACITY INT," +
+                "AVAILABLE_TIME     INT," +
+                "AVAILABLE_CAPACITY INT," +
+                "REMARK             STRING," +
+                "CID                INT," +
                 ") WITH ( " +
                 " 'connector' = 'oracle-cdc', " +
                 " 'hostname' = '172.16.10.57', " +
@@ -91,21 +97,6 @@ public class OdsMesProductionProdlineCalendar {
         tableEnv.executeSql(destinationSql);
 
         //TODO 5. 将查询的结果插入到doris中（流式插入）
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_calendar select " +
-                "CALENDAR_ID,\n" +
-                "CREATED_BY,\n" +
-                "CREATION_DATE,\n" +
-                "LAST_UPDATED_BY,\n" +
-                "LAST_UPDATE_DATE,\n" +
-                "LAST_UPDATE_LOGIN,\n" +
-                "CALENDAR_TYPE,\n" +
-                "DESCRIPTION,\n" +
-                "PROD_LINE_ID,\n" +
-                "ENABLE_FLAG,\n" +
-                "PLANT_ID,\n" +
-                "CALENDAR_CODE,\n" +
-                "CID," +
-                "CURRENT_TIMESTAMP from ods_mes_production_prodline_calendar");
-
+        tableEnv.executeSql("");
     }
 }
