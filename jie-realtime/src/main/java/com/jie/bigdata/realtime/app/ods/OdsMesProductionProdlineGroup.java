@@ -71,7 +71,7 @@ public class OdsMesProductionProdlineGroup {
                 " 'database-name' = 'MESPROD', " +
                 " 'schema-name' = 'HCMS'," +
                 " 'table-name' = 'HCM_PRODUCTION_LINE_GROUP', " +
-                " 'scan.startup.mode' = 'initial'," +
+                " 'scan.startup.mode' = 'latest-offset'," +
                 "'debezium.log.mining.strategy' = 'online_catalog'," +
                 "'debezium.log.mining.continuous.mine' = 'true'" +
                 ")";
