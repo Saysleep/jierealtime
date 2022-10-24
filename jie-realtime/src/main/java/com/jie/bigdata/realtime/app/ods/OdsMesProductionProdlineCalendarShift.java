@@ -27,13 +27,13 @@ public class OdsMesProductionProdlineCalendarShift {
         ));
         env.setStateBackend(new HashMapStateBackend());
         env.getCheckpointConfig().setCheckpointStorage(
-                "hdfs://10.0.0.14:8020/ck/ods_mes_production_prodline_calendar_shift"
+                "hdfs://10.0.0.50:8020/ck/ods_mes_production_prodline_calendar_shift"
         );
-        System.setProperty("HADOOP_USER_NAME", "jie");
+        System.setProperty("HADOOP_USER_NAME", "root");
 
         //TODO 3. 利用FlinkCDC读取MES数据并用FlinkSql封装成动态表
         String sourceSql = "" +
-                "CREATE TABLE ods_mes_production_prodline_calendar ( " +
+                "CREATE TABLE ods_mes_production_prodline_calendar_shift ( " +
                 "CREATED_BY         INT," +
                 "CREATION_DATE      TIMESTAMP," +
                 "LAST_UPDATED_BY    INT," +
@@ -52,7 +52,7 @@ public class OdsMesProductionProdlineCalendarShift {
                 "AVAILABLE_TIME     INT," +
                 "AVAILABLE_CAPACITY INT," +
                 "REMARK             STRING," +
-                "CID                INT," +
+                "CID                INT" +
                 ") WITH ( " +
                 " 'connector' = 'oracle-cdc', " +
                 " 'hostname' = '172.16.10.57', " +
@@ -61,34 +61,40 @@ public class OdsMesProductionProdlineCalendarShift {
                 " 'password' = 'hcmsprod', " +
                 " 'database-name' = 'MESPROD', " +
                 " 'schema-name' = 'HCMS'," +
-                " 'table-name' = 'HCM_CALENDAR', " +
-                " 'scan.startup.mode' = 'latest-offset'," +
+                " 'table-name' = 'HCM_CALENDAR_SHIFT', " +
+                " 'scan.startup.mode' = 'initial'," +
                 "'debezium.log.mining.strategy' = 'online_catalog'," +
                 "'debezium.log.mining.continuous.mine' = 'true'" +
                 ")";
         tableEnv.executeSql(sourceSql);
 
         //TODO 4. 读取doris的表信息到临时表中形成动态表
-        String destinationSql = "CREATE TABLE doris_ods_mes_production_prodline_calendar (\n" +
-                "calendar_id decimal(27,3)," +
-                "created_by double," +
-                "creation_date TIMESTAMP," +
-                "last_updated_by double," +
-                "last_update_date TIMESTAMP," +
-                "last_update_login double," +
-                "calendar_type string," +
-                "description string," +
-                "prod_line_id double," +
-                "enable_flag string," +
-                "plant_id double," +
-                "calendar_code string," +
-                "cid double," +
-                "update_datetime TIMESTAMP" +
+        String destinationSql = "CREATE TABLE doris_ods_mes_production_prodline_calendar_shift (\n" +
+                    "calendar_shift_id decimal(27,3)," +
+                    "created_by int," +
+                    "creation_date timestamp," +
+                    "last_updated_by int," +
+                    "last_update_date timestamp," +
+                    "last_update_login int," +
+                    "calendar_id int," +
+                    "calendar_day timestamp," +
+                    "shift_code string," +
+                    "enable_flag string," +
+                    "shift_start_time timestamp," +
+                    "shift_end_time timestamp," +
+                    "break_time int," +
+                    "activity int," +
+                    "replenish_capacity int," +
+                    "available_time int," +
+                    "available_capacity int," +
+                    "remark string," +
+                    "cid int," +
+                    "update_datetime timestamp" +
                 "    ) \n" +
                 "    WITH (\n" +
                 "      'connector' = 'doris',\n" +
                 "      'fenodes' = '10.0.0.50:8030',\n" +
-                "      'table.identifier' = 'test_db.ods_mes_production_prodline_calendar',\n" +
+                "      'table.identifier' = 'test_db.ods_mes_production_prodline_calendar_shift',\n" +
                 "       'sink.batch.size' = '2',\n" +
                 "       'sink.batch.interval'='1',\n" +
                 "      'username' = 'root',\n" +
@@ -97,6 +103,26 @@ public class OdsMesProductionProdlineCalendarShift {
         tableEnv.executeSql(destinationSql);
 
         //TODO 5. 将查询的结果插入到doris中（流式插入）
-        tableEnv.executeSql("");
+        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_calendar_shift select" +
+                " CALENDAR_SHIFT_ID\n" +
+                ",CREATED_BY\n" +
+                ",CREATION_DATE\n" +
+                ",LAST_UPDATED_BY\n" +
+                ",LAST_UPDATE_DATE\n" +
+                ",LAST_UPDATE_LOGIN\n" +
+                ",CALENDAR_ID\n" +
+                ",CALENDAR_DAY\n" +
+                ",SHIFT_CODE\n" +
+                ",ENABLE_FLAG\n" +
+                ",SHIFT_START_TIME\n" +
+                ",SHIFT_END_TIME\n" +
+                ",BREAK_TIME\n" +
+                ",ACTIVITY\n" +
+                ",REPLENISH_CAPACITY\n" +
+                ",AVAILABLE_TIME\n" +
+                ",AVAILABLE_CAPACITY\n" +
+                ",REMARK\n" +
+                ",CID" +
+                ",CURRENT_TIMESTAMP from ods_mes_production_prodline_calendar_shift");
     }
 }
