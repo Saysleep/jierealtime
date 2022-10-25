@@ -134,6 +134,5 @@ public class OdsMesProductionProdlineMoveRecord {
                 ", ATTRIBUTE4" +
                 ", ATTRIBUTE5" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_prodline_move_record");
-
     }
 }
