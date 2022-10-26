@@ -57,7 +57,7 @@ public class OdsMesSupplychainMaterialLocator {
                 " 'database-name' = 'MESPROD', " +
                 " 'schema-name' = 'HCMS'," +
                 " 'table-name' = 'HCM_LOCATOR', " +
-                " 'scan.startup.mode' = 'initial'," +
+                " 'scan.startup.mode' = 'latest-offset'," +
                 "'debezium.log.mining.strategy' = 'online_catalog'," +
                 "'debezium.log.mining.continuous.mine' = 'true'" +
                 ")";
