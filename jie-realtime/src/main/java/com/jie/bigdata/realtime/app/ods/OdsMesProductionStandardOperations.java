@@ -70,7 +70,7 @@ public class OdsMesProductionStandardOperations {
                 " 'database-name' = 'MESPROD', " +
                 " 'schema-name' = 'HCMS'," +
                 " 'table-name' = 'HCM_STANDARD_OP_B', " +
-                " 'scan.startup.mode' = 'initial'," +
+                " 'scan.startup.mode' = 'latest-offset'," +
                 "'debezium.log.mining.strategy' = 'online_catalog'," +
                 "'debezium.log.mining.continuous.mine' = 'true'" +
                 ")";
@@ -170,30 +170,3 @@ public class OdsMesProductionStandardOperations {
                 "AND t.`LANGUAGE` = 'ZHS'");
     }
 }
-/*SELECT B."CREATION_DATE",
-       B."CREATED_BY",
-       B."LAST_UPDATED_BY",
-       B."LAST_UPDATE_DATE",
-       B."LAST_UPDATE_LOGIN",
-       B."STANDARD_OP_ID",
-       B."PLANT_ID",
-       B."CODE",
-       B."KEY_OP_FLAG",
-       B."MOVE_TYPE",
-       B."INSPECT_TYPE",
-       B."CHARGE_TYPE",
-       B."ENABLE_FLAG",
-       B."PROCESS_TIME",
-       B."STANDARD_WORK_TIME",
-       B."OPERATION_DOCUMENT",
-       B."PROCESS_PROGRAM",
-       B."CID",
-       t.description,
-       b.self_test_flag,
-       b.first_test_flag,
-       b.heat_treatment_flag,
-       b.heat_treatment_os_flag
-FROM hcm_standard_op_b b,
-     hcm_standard_op_tl t
-WHERE b.standard_op_id = t.standard_op_id
-  AND t.language = system_api_pkg.get_language*/
