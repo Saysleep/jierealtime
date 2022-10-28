@@ -1,19 +1,23 @@
 package com.jie.bigdata.realtime.app.ods;
 
+import org.apache.commons.math3.fitting.leastsquares.EvaluationRmsChecker;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
+import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
 import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.table.api.StatementSet;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 import static com.jie.bigdata.realtime.utils.Constant.*;
-import static com.jie.bigdata.realtime.utils.Constant.hadoopUserName;
 import static com.jie.bigdata.realtime.utils.SomeSql.*;
 
 public class OdsMesTotal {
     public static void main(String[] args) {
         // TODO 1. 环境准备
+        //Configuration configuration = new Configuration();
+        //configuration.setString("rest.port","8088"); //指定 Flink Web UI 端口为9091
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
@@ -25,12 +29,14 @@ public class OdsMesTotal {
         env.getCheckpointConfig().enableExternalizedCheckpoints(
                 CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION
         );
-        env.setRestartStrategy(RestartStrategies.failureRateRestart(
-                failureRate, failureInterval, delayInterval
-        ));
+        //env.setRestartStrategy(RestartStrategies.failureRateRestart(
+        //        failureRate, failureInterval, delayInterval
+        //));
+        env.setRestartStrategy(RestartStrategies.fixedDelayRestart(restartAttempts,delayInterval));
+        env.getCheckpointConfig().setTolerableCheckpointFailureNumber(100);
         env.setStateBackend(new HashMapStateBackend());
         env.getCheckpointConfig().setCheckpointStorage(
-                checkpointAddress + "ods_mes_management_employee_user"
+                checkpointAddress
         );
         System.setProperty("HADOOP_USER_NAME", hadoopUserName);
         //TODO 3. 利用FlinkCDC读取MES数据 将所有所需表都同步过来
@@ -90,7 +96,12 @@ public class OdsMesTotal {
         tableEnv.executeSql(destinationSql24);
 
         //TODO 5. 插入数据
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_management_employee_user SELECT\n" +
+
+        // 创建语句集
+        StatementSet insertSet = tableEnv.createStatementSet();
+
+        // 增加insert语句
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_management_employee_user SELECT\n" +
                 "  cast(USER_ID as string) USER_ID\n" +
                 ", USER_NAME\n" +
                 ", HFWK_PASSWORD\n" +
@@ -116,7 +127,7 @@ public class OdsMesTotal {
                 ", cast(LOGIN_COUNT as string) LOGIN_COUNT\n" +
                 ", DEPARTMENT" +
                 ",CURRENT_TIMESTAMP from ods_mes_management_employee_user");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_operation_sequence select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_operation_sequence select " +
                 "   KID,\n" +
                 "  CREATION_DATE,\n" +
                 " cast(CREATED_BY as string) CREATED_BY,\n" +
@@ -152,7 +163,8 @@ public class OdsMesTotal {
                 " MACHINE_TIME,\n" +
                 " MACHINE_UOM, " +
                 " CURRENT_TIMESTAMP FROM ods_mes_production_operation_sequence");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_calendar select " +
+
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_calendar select " +
                 "CALENDAR_ID,\n" +
                 "CREATED_BY,\n" +
                 "CREATION_DATE,\n" +
@@ -167,7 +179,7 @@ public class OdsMesTotal {
                 "CALENDAR_CODE,\n" +
                 "CID," +
                 "CURRENT_TIMESTAMP from ods_mes_production_prodline_calendar");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_calendar_shift select" +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_calendar_shift select" +
                 " CALENDAR_SHIFT_ID\n" +
                 ",CREATED_BY\n" +
                 ",CREATION_DATE\n" +
@@ -188,7 +200,7 @@ public class OdsMesTotal {
                 ",REMARK\n" +
                 ",CID" +
                 ",CURRENT_TIMESTAMP from ods_mes_production_prodline_calendar_shift");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_component select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_component select " +
                 " cast(KID as STRING) KID\n" +
                 ", CREATED_DATE\n" +
                 ", cast(CREATED_BY as STRING) CREATED_BY\n" +
@@ -209,7 +221,7 @@ public class OdsMesTotal {
                 ", LOCATOR_CODE\n" +
                 ", cast(CID as STRING) CID\n" +
                 ", RECOIL_FLAG , CURRENT_TIMESTAMP from ods_mes_production_prodline_component");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_executive_order select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_executive_order select " +
                 "  EO_ID\n" +
                 ", CREATED_DATE\n" +
                 ", CREATED_BY\n" +
@@ -247,22 +259,37 @@ public class OdsMesTotal {
                 ", WIP_BARCODE_QTY\n" +
                 ", WIP_BARCODE_SCRAPED_QTY\n" +
                 ", REMARKS, CURRENT_TIMESTAMP FROM ods_mes_production_prodline_executive_order");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_group select " +
-                "CALENDAR_ID,\n" +
-                "CREATED_BY,\n" +
-                "CREATION_DATE,\n" +
-                "LAST_UPDATED_BY,\n" +
-                "LAST_UPDATE_DATE,\n" +
-                "LAST_UPDATE_LOGIN,\n" +
-                "CALENDAR_TYPE,\n" +
-                "DESCRIPTION,\n" +
-                "PROD_LINE_ID,\n" +
-                "ENABLE_FLAG,\n" +
-                "PLANT_ID,\n" +
-                "CALENDAR_CODE,\n" +
-                "CID," +
-                "CURRENT_TIMESTAMP from ods_mes_production_prodline_group");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_line select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_group select " +
+                " PROD_LINE_GROUP_ID" +
+                ", CREATED_BY" +
+                ", CREATION_DATE" +
+                ", LAST_UPDATED_BY" +
+                ", LAST_UPDATE_DATE" +
+                ", LAST_UPDATE_LOGIN" +
+                ", SCHEDULE_REGION_ID" +
+                ", PROD_LINE_GROUP_CODE" +
+                ", DESCRIPTIONS" +
+                ", ORDER_BY_CODE" +
+                ", PLAN_START_TIME" +
+                ", ENABLE_FLAG" +
+                ", PROCESS_SEQUENCE" +
+                ", PERIODIC_TIME" +
+                ", BASIC_ALGORITHM" +
+                ", EXTENDED_ALGORITHM" +
+                ", FIX_TIME_FENCE" +
+                ", FORWARD_PLANNING_TIME_FENCE" +
+                ", PROD_LINE_RULE" +
+                ", RELEASE_TIME_FENCE" +
+                ", PLANNING_PHASE_TIME" +
+                ", PLANNING_BASE" +
+                ", DELAY_TIME_FENCE" +
+                ", FROZEN_TIME_FENCE" +
+                ", ORDER_TIME_FENCE" +
+                ", RELEASE_CONCURRENT_RULE" +
+                ", PLAN_COLLABORATIVE_RULE" +
+                ", CID" +
+                ", CURRENT_TIMESTAMP from ods_mes_production_prodline_group");
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_line select " +
                 "  PROD_LINE_ID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -299,7 +326,7 @@ public class OdsMesTotal {
                 ", INVENTORY_LOCATOR_CODE" +
                 ", CID" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_prodline_line");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_line_item select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_line_item select " +
                 "  PROD_LINE_ID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -330,7 +357,7 @@ public class OdsMesTotal {
                 ", INVENTORY_LOCATOR_CODE" +
                 ", CID" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_prodline_line_item");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_make_order select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_make_order select " +
                 "  MAKE_ORDER_ID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -416,7 +443,7 @@ public class OdsMesTotal {
                 ", ENABLE_FLAG" +
                 ", HEAT_SPLIT_FLAG" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_prodline_make_order");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_move_record select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_move_record select " +
                 "  cast(KID as STRING) KID" +
                 ", cast(CREATED_BY as STRING) CREATED_BY" +
                 ", CREATION_DATE" +
@@ -440,7 +467,7 @@ public class OdsMesTotal {
                 ", ATTRIBUTE4" +
                 ", ATTRIBUTE5" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_prodline_move_record");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_operation_sequence select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_operation_sequence select " +
                 "  cast(KID as STRING) KID" +
                 ", CREATED_DATE" +
                 ", cast(CREATED_BY as STRING) CREATED_BY" +
@@ -453,7 +480,7 @@ public class OdsMesTotal {
                 ", LAST_OPS_FLAG" +
                 ", cast(CID as STRING) CID" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_prodline_operation_sequence");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_wkcg_rel select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_prodline_wkcg_rel select " +
                 "  cast(REL_ID as STRING) REL_ID" +
                 ", CREATED_DATE" +
                 ", cast(CREATED_BY as STRING) CREATED_BY" +
@@ -466,7 +493,7 @@ public class OdsMesTotal {
                 ", ENABLE_FLAG" +
                 ", cast(CID as STRING) CID" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_prodline_wkcg_rel");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_standard_operations select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_standard_operations select " +
                 "b.`STANDARD_OP_ID`," +
                 "b.`CREATION_DATE`," +
                 "cast(b.`CREATED_BY` as string)," +
@@ -494,7 +521,7 @@ public class OdsMesTotal {
                 "ods_mes_production_standard_operations2 t " +
                 "WHERE b.STANDARD_OP_ID = t.STANDARD_OP_ID " +
                 "AND t.`LANGUAGE` = 'ZHS'");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_production_wip_barcode select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_production_wip_barcode select " +
                 "  KID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -527,7 +554,7 @@ public class OdsMesTotal {
                 ", ATTRIBUTE4" +
                 ", ATTRIBUTE5" +
                 ", CURRENT_TIMESTAMP from ods_mes_production_wip_barcode");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_material_factory select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_material_factory select " +
                 "  PLANT_ID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -540,7 +567,7 @@ public class OdsMesTotal {
                 ", ENABLE_FLAG" +
                 ", MAIN_PLANT_FLAG" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_material_factory");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_material_item select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_material_item select " +
                 "B.ITEM_ID," +
                 "B.CREATED_BY," +
                 "B.CREATION_DATE," +
@@ -631,7 +658,7 @@ public class OdsMesTotal {
                 "AND HP.PLANT_ID = B.PLANT_ID " +
                 "AND T.`LANGUAGE` = 'ZHS' " +
                 "AND B.ITEM_GROUP_ID = IG.ITEM_GROUP_ID");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_material_item_b select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_material_item_b select " +
                 "  ITEM_ID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -723,7 +750,7 @@ public class OdsMesTotal {
                 ", ATTRIBUTE9" +
                 ", ATTRIBUTE10" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_material_item_b");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_material_locator select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_material_locator select " +
                 "  KID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -738,7 +765,7 @@ public class OdsMesTotal {
                 ", CID" +
                 ", LOCATOR_TYPE" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_material_locator");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_material_requirement select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_material_requirement select " +
                 "  cast(KID as STRING) KID" +
                 ", CREATED_DATE" +
                 ", cast(CREATED_BY as STRING) CREATED_BY" +
@@ -760,7 +787,7 @@ public class OdsMesTotal {
                 ", cast(CID as STRING) CID" +
                 ", RECOIL_FLAG" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_material_requirement");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_material_warehouse select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_material_warehouse select " +
                 "  KID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -782,7 +809,7 @@ public class OdsMesTotal {
                 ", THING_LABEL_FLAG" +
                 ", WORKSHOP_ID" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_material_warehouse");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_material_wip_barcode select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_material_wip_barcode select " +
                 "  KID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -815,7 +842,7 @@ public class OdsMesTotal {
                 ", ATTRIBUTE4" +
                 ", ATTRIBUTE5" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_material_wip_barcode");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_plan_region select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_plan_region select " +
                 "  SCHEDULE_REGION_ID" +
                 ", CREATED_BY" +
                 ", CREATION_DATE" +
@@ -834,7 +861,7 @@ public class OdsMesTotal {
                 ", RELEASE_TIME_FENCE" +
                 ", ORDER_TIME_FENCE" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_plan_region");
-        tableEnv.executeSql("INSERT INTO doris_ods_mes_supplychain_workcell select " +
+        insertSet.addInsertSql("INSERT INTO doris_ods_mes_supplychain_workcell select " +
                 "  WORKCELL_ID" +
                 ", CREATED_DATE" +
                 ", CREATED_BY" +
@@ -850,6 +877,7 @@ public class OdsMesTotal {
                 ", CID" +
                 ", WORKSHOP_ID" +
                 ", CURRENT_TIMESTAMP from ods_mes_supplychain_workcell");
+        insertSet.execute();
 
     }
 }

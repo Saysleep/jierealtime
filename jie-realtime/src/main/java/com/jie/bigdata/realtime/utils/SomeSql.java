@@ -51,7 +51,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HFWK_USERS', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -100,7 +100,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HPS_MO_OPERATION_SEQUENCE', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -129,7 +129,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_CALENDAR', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -164,7 +164,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_CALENDAR_SHIFT', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -200,7 +200,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HME_EO_REQUIREMENT', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -253,7 +253,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HME_EXECUTIVE_ORDER', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -297,7 +297,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_PRODUCTION_LINE_GROUP', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -348,7 +348,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_PRODUCTION_LINE', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -393,7 +393,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_PROD_LINE_ITEM', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -493,7 +493,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HPS_MAKE_ORDER', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -531,7 +531,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HME_JIE_MOVE_RECORD', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -558,7 +558,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HME_EO_OPERATION_SEQUENCE', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -585,7 +585,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_PROD_LINE_WKCG_REL', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -628,7 +628,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_STANDARD_OP_B', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -652,7 +652,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_STANDARD_OP_TL', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -699,7 +699,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HME_JIE_WIP_BARCODE', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -726,7 +726,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_PLANT', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -832,7 +832,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_ITEM_B', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -857,7 +857,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_ITEM_TL', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -883,7 +883,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_PLANT', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -920,7 +920,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_JIE_ITEM_GROUP', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1026,7 +1026,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_ITEM_B', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1055,7 +1055,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_LOCATOR', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1091,7 +1091,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HME_EO_REQUIREMENT', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1127,7 +1127,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_WAREHOUSE', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1174,7 +1174,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HME_JIE_WIP_BARCODE', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1207,7 +1207,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_SCHEDULE_REGION', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1237,7 +1237,7 @@ public class SomeSql {
             " 'database-name' = 'MESPROD', " +
             " 'schema-name' = 'HCMS'," +
             " 'table-name' = 'HCM_WORKCELL', " +
-            " 'scan.startup.mode' = 'initial'," +
+            " 'scan.startup.mode' = 'latest-offset'," +
             "'debezium.log.mining.strategy' = 'online_catalog'," +
             "'debezium.log.mining.continuous.mine' = 'true'" +
             ")";
@@ -1469,19 +1469,34 @@ public class SomeSql {
             ")";
     //
     public static String destinationSql7 = "CREATE TABLE doris_ods_mes_production_prodline_group (\n" +
-            "calendar_id decimal(27,3)," +
-            "created_by double," +
-            "creation_date TIMESTAMP," +
-            "last_updated_by double," +
-            "last_update_date TIMESTAMP," +
-            "last_update_login double," +
-            "calendar_type string," +
-            "description string," +
-            "prod_line_id double," +
-            "enable_flag string," +
-            "plant_id double," +
-            "calendar_code string," +
-            "cid double," +
+            "PROD_LINE_GROUP_ID int," +
+            "CREATED_BY int," +
+            "CREATION_DATE timestamp," +
+            "LAST_UPDATED_BY int," +
+            "LAST_UPDATE_DATE timestamp," +
+            "LAST_UPDATE_LOGIN int," +
+            "SCHEDULE_REGION_ID int," +
+            "PROD_LINE_GROUP_CODE string," +
+            "DESCRIPTIONS string," +
+            "ORDER_BY_CODE string," +
+            "PLAN_START_TIME timestamp," +
+            "ENABLE_FLAG string," +
+            "PROCESS_SEQUENCE string," +
+            "PERIODIC_TIME string," +
+            "BASIC_ALGORITHM string," +
+            "EXTENDED_ALGORITHM string," +
+            "FIX_TIME_FENCE double," +
+            "FORWARD_PLANNING_TIME_FENCE double," +
+            "PROD_LINE_RULE string," +
+            "RELEASE_TIME_FENCE double," +
+            "PLANNING_PHASE_TIME string," +
+            "PLANNING_BASE string," +
+            "DELAY_TIME_FENCE double," +
+            "FROZEN_TIME_FENCE double," +
+            "ORDER_TIME_FENCE double," +
+            "RELEASE_CONCURRENT_RULE string," +
+            "PLAN_COLLABORATIVE_RULE string," +
+            "CID int," +
             "update_datetime TIMESTAMP" +
             "    ) \n" +
             "    WITH (\n" +

@@ -82,19 +82,34 @@ public class OdsMesProductionProdlineGroup {
 
         //TODO 4. 读取doris的表信息到临时表中形成动态表
         String destinationSql = "CREATE TABLE doris_ods_mes_production_prodline_group (\n" +
-                "calendar_id decimal(27,3)," +
-                "created_by double," +
-                "creation_date TIMESTAMP," +
-                "last_updated_by double," +
-                "last_update_date TIMESTAMP," +
-                "last_update_login double," +
-                "calendar_type string," +
-                "description string," +
-                "prod_line_id double," +
-                "enable_flag string," +
-                "plant_id double," +
-                "calendar_code string," +
-                "cid double," +
+                "PROD_LINE_GROUP_ID int," +
+                "CREATED_BY int," +
+                "CREATION_DATE timestamp," +
+                "LAST_UPDATED_BY int," +
+                "LAST_UPDATE_DATE timestamp," +
+                "LAST_UPDATE_LOGIN int," +
+                "SCHEDULE_REGION_ID int," +
+                "PROD_LINE_GROUP_CODE string," +
+                "DESCRIPTIONS string," +
+                "ORDER_BY_CODE string," +
+                "PLAN_START_TIME timestamp," +
+                "ENABLE_FLAG string," +
+                "PROCESS_SEQUENCE string," +
+                "PERIODIC_TIME string," +
+                "BASIC_ALGORITHM string," +
+                "EXTENDED_ALGORITHM string," +
+                "FIX_TIME_FENCE double," +
+                "FORWARD_PLANNING_TIME_FENCE double," +
+                "PROD_LINE_RULE string," +
+                "RELEASE_TIME_FENCE double," +
+                "PLANNING_PHASE_TIME string," +
+                "PLANNING_BASE string," +
+                "DELAY_TIME_FENCE double," +
+                "FROZEN_TIME_FENCE double," +
+                "ORDER_TIME_FENCE double," +
+                "RELEASE_CONCURRENT_RULE string," +
+                "PLAN_COLLABORATIVE_RULE string," +
+                "CID int," +
                 "update_datetime TIMESTAMP" +
                 "    ) \n" +
                 "    WITH (\n" +
@@ -110,20 +125,35 @@ public class OdsMesProductionProdlineGroup {
 
         //TODO 5. 将查询的结果插入到doris中（流式插入）
         tableEnv.executeSql("INSERT INTO doris_ods_mes_production_prodline_group select " +
-                "CALENDAR_ID,\n" +
-                "CREATED_BY,\n" +
-                "CREATION_DATE,\n" +
-                "LAST_UPDATED_BY,\n" +
-                "LAST_UPDATE_DATE,\n" +
-                "LAST_UPDATE_LOGIN,\n" +
-                "CALENDAR_TYPE,\n" +
-                "DESCRIPTION,\n" +
-                "PROD_LINE_ID,\n" +
-                "ENABLE_FLAG,\n" +
-                "PLANT_ID,\n" +
-                "CALENDAR_CODE,\n" +
-                "CID," +
-                "CURRENT_TIMESTAMP from ods_mes_production_prodline_group");
+                " PROD_LINE_GROUP_ID" +
+                ", CREATED_BY" +
+                ", CREATION_DATE" +
+                ", LAST_UPDATED_BY" +
+                ", LAST_UPDATE_DATE" +
+                ", LAST_UPDATE_LOGIN" +
+                ", SCHEDULE_REGION_ID" +
+                ", PROD_LINE_GROUP_CODE" +
+                ", DESCRIPTIONS" +
+                ", ORDER_BY_CODE" +
+                ", PLAN_START_TIME" +
+                ", ENABLE_FLAG" +
+                ", PROCESS_SEQUENCE" +
+                ", PERIODIC_TIME" +
+                ", BASIC_ALGORITHM" +
+                ", EXTENDED_ALGORITHM" +
+                ", FIX_TIME_FENCE" +
+                ", FORWARD_PLANNING_TIME_FENCE" +
+                ", PROD_LINE_RULE" +
+                ", RELEASE_TIME_FENCE" +
+                ", PLANNING_PHASE_TIME" +
+                ", PLANNING_BASE" +
+                ", DELAY_TIME_FENCE" +
+                ", FROZEN_TIME_FENCE" +
+                ", ORDER_TIME_FENCE" +
+                ", RELEASE_CONCURRENT_RULE" +
+                ", PLAN_COLLABORATIVE_RULE" +
+                ", CID" +
+                ", CURRENT_TIMESTAMP from ods_mes_production_prodline_group");
 
     }
 }

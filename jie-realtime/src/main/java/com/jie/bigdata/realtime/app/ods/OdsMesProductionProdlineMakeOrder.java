@@ -19,19 +19,21 @@ public class OdsMesProductionProdlineMakeOrder {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
         // TODO 2. 状态后端设置
-        env.enableCheckpointing(intervalCheckpoint, CheckpointingMode.EXACTLY_ONCE);
-        env.getCheckpointConfig().setCheckpointTimeout(checkpointTimeout);
-        env.getCheckpointConfig().setMinPauseBetweenCheckpoints(minPauseBetweenCheckpoints);
-        env.getCheckpointConfig().enableExternalizedCheckpoints(
-                CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION
-        );
-        env.setRestartStrategy(RestartStrategies.failureRateRestart(
-                failureRate, failureInterval, delayInterval
-        ));
-        env.setStateBackend(new HashMapStateBackend());
-        env.getCheckpointConfig().setCheckpointStorage(
-                checkpointAddress + "ods_mes_production_prodline_make_order"
-        );
+        //env.enableCheckpointing(intervalCheckpoint, CheckpointingMode.EXACTLY_ONCE);
+        //env.getCheckpointConfig().setCheckpointTimeout(checkpointTimeout);
+        //env.getCheckpointConfig().setMinPauseBetweenCheckpoints(minPauseBetweenCheckpoints);
+        //env.getCheckpointConfig().enableExternalizedCheckpoints(
+        //        CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION
+        //);
+        ////env.setRestartStrategy(RestartStrategies.failureRateRestart(
+        ////        failureRate, failureInterval, delayInterval
+        ////));
+        //env.setRestartStrategy(RestartStrategies.fixedDelayRestart(restartAttempts,delayInterval));
+        //env.getCheckpointConfig().setTolerableCheckpointFailureNumber(100);
+        //env.setStateBackend(new HashMapStateBackend());
+        //env.getCheckpointConfig().setCheckpointStorage(
+        //        checkpointAddress + "ods_mes_production_prodline_make_order"
+        //);
         System.setProperty("HADOOP_USER_NAME", hadoopUserName);
 
         //TODO 3. 利用FlinkCDC读取MES数据并用FlinkSql封装成动态表
@@ -130,7 +132,7 @@ public class OdsMesProductionProdlineMakeOrder {
                 " 'database-name' = 'MESPROD', " +
                 " 'schema-name' = 'HCMS'," +
                 " 'table-name' = 'HPS_MAKE_ORDER', " +
-                " 'scan.startup.mode' = 'latest-offset'," +
+                " 'scan.startup.mode' = 'initial'," +
                 "'debezium.log.mining.strategy' = 'online_catalog'," +
                 "'debezium.log.mining.continuous.mine' = 'true'" +
                 ")";
