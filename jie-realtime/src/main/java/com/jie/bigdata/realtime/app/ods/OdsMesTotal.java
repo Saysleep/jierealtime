@@ -1,6 +1,10 @@
 package com.jie.bigdata.realtime.app.ods;
 
-import org.apache.commons.math3.fitting.leastsquares.EvaluationRmsChecker;
+
+/*import com.ververica.cdc.connectors.mysql.source.MySqlSource;
+import com.ververica.cdc.connectors.mysql.table.StartupOptions;*/
+import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
@@ -14,94 +18,117 @@ import static com.jie.bigdata.realtime.utils.Constant.*;
 import static com.jie.bigdata.realtime.utils.SomeSql.*;
 
 public class OdsMesTotal {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO 1. 环境准备
-        //Configuration configuration = new Configuration();
-        //configuration.setString("rest.port","8088"); //指定 Flink Web UI 端口为9091
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
+//
+        //// TODO 2. 状态后端设置
+        //env.enableCheckpointing(intervalCheckpoint, CheckpointingMode.EXACTLY_ONCE);
+        //env.getCheckpointConfig().setCheckpointTimeout(checkpointTimeout);
+        //env.getCheckpointConfig().setMinPauseBetweenCheckpoints(minPauseBetweenCheckpoints);
+       ///* env.getCheckpointConfig().enableExternalizedCheckpoints(
+        //        CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION
+        //);*/
+        //env.getCheckpointConfig().setExternalizedCheckpointCleanup(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
+        ////env.setRestartStrategy(RestartStrategies.failureRateRestart(
+        ////        failureRate, failureInterval, delayInterval
+        ////));
+        //env.setRestartStrategy(RestartStrategies.fixedDelayRestart(restartAttempts,delayInterval));
+        //env.getCheckpointConfig().setTolerableCheckpointFailureNumber(100);
+        //env.setStateBackend(new HashMapStateBackend());
+        //env.getCheckpointConfig().setCheckpointStorage(
+        //        checkpointAddress
+        //);
+        //System.setProperty("HADOOP_USER_NAME", hadoopUserName);
 
-        // TODO 2. 状态后端设置
-        env.enableCheckpointing(intervalCheckpoint, CheckpointingMode.EXACTLY_ONCE);
-        env.getCheckpointConfig().setCheckpointTimeout(checkpointTimeout);
-        env.getCheckpointConfig().setMinPauseBetweenCheckpoints(minPauseBetweenCheckpoints);
-        env.getCheckpointConfig().enableExternalizedCheckpoints(
-                CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION
-        );
-        //env.setRestartStrategy(RestartStrategies.failureRateRestart(
-        //        failureRate, failureInterval, delayInterval
-        //));
-        env.setRestartStrategy(RestartStrategies.fixedDelayRestart(restartAttempts,delayInterval));
-        env.getCheckpointConfig().setTolerableCheckpointFailureNumber(100);
-        env.setStateBackend(new HashMapStateBackend());
-        env.getCheckpointConfig().setCheckpointStorage(
-                checkpointAddress
-        );
-        System.setProperty("HADOOP_USER_NAME", hadoopUserName);
+        //
+        //MySqlSource<String> mySqlSource = MySqlSource.<String>builder()
+        //        .hostname("10.0.0.15")
+        //        .port(3306)
+        //        .databaseList("jie_mdm")
+        //        .tableList("jie_mdm.task_cogroups") // set captured table
+        //        .username("root")
+        //        .password("123456")
+        //        .deserializer(new JsonDebeziumDeserializationSchema()) // converts SourceRecord to JSON String
+        //        .startupOptions(StartupOptions.initial())
+        //        .build();
+        //env.fromSource(mySqlSource, WatermarkStrategy.noWatermarks(), "config Source")
+        //        .setParallelism(1).print();
+        //env.execute();
+
         //TODO 3. 利用FlinkCDC读取MES数据 将所有所需表都同步过来
-        tableEnv.executeSql(sourceSql1);
-        tableEnv.executeSql(sourceSql2);
-        tableEnv.executeSql(sourceSql3);
-        tableEnv.executeSql(sourceSql4);
-        tableEnv.executeSql(sourceSql5);
-        tableEnv.executeSql(sourceSql6);
-        tableEnv.executeSql(sourceSql7);
-        tableEnv.executeSql(sourceSql8);
-        tableEnv.executeSql(sourceSql9);
-        tableEnv.executeSql(sourceSql10);
-        tableEnv.executeSql(sourceSql11);
-        tableEnv.executeSql(sourceSql12);
-        tableEnv.executeSql(sourceSql13);
-        tableEnv.executeSql(sourceSql14);
-        tableEnv.executeSql(sourceSql15);
-        tableEnv.executeSql(sourceSql16);
-        tableEnv.executeSql(sourceSql17);
-        tableEnv.executeSql(sourceSql18);
-        tableEnv.executeSql(sourceSql19);
-        tableEnv.executeSql(sourceSql20);
-        tableEnv.executeSql(sourceSql21);
-        tableEnv.executeSql(sourceSql22);
-        tableEnv.executeSql(sourceSql23);
-        tableEnv.executeSql(sourceSql24);
-        tableEnv.executeSql(sourceSql25);
-        tableEnv.executeSql(sourceSql26);
-        tableEnv.executeSql(sourceSql27);
-        tableEnv.executeSql(sourceSql28);
+        tableEnv.executeSql(sourceSql0);
+        //tableEnv.sqlQuery("select * from tbl_test").execute().print();
+        //tableEnv.executeSql(sourceSql1);
+        //tableEnv.executeSql(sourceSql2);
+        //tableEnv.executeSql(sourceSql3);
+        //tableEnv.executeSql(sourceSql4);
+        //tableEnv.executeSql(sourceSql5);
+        //tableEnv.executeSql(sourceSql6);
+        //tableEnv.executeSql(sourceSql7);
+        //tableEnv.executeSql(sourceSql8);
+        //tableEnv.executeSql(sourceSql9);
+        //tableEnv.executeSql(sourceSql10);
+        //tableEnv.executeSql(sourceSql11);
+        //tableEnv.executeSql(sourceSql12);
+        //tableEnv.executeSql(sourceSql13);
+        //tableEnv.executeSql(sourceSql14);
+        //tableEnv.executeSql(sourceSql15);
+        //tableEnv.executeSql(sourceSql16);
+        //tableEnv.executeSql(sourceSql17);
+        //tableEnv.executeSql(sourceSql18);
+        //tableEnv.executeSql(sourceSql19);
+        //tableEnv.executeSql(sourceSql20);
+        //tableEnv.executeSql(sourceSql21);
+        //tableEnv.executeSql(sourceSql22);
+        //tableEnv.executeSql(sourceSql23);
+        //tableEnv.executeSql(sourceSql24);
+        //tableEnv.executeSql(sourceSql25);
+        //tableEnv.executeSql(sourceSql26);
+        //tableEnv.executeSql(sourceSql27);
+        //tableEnv.executeSql(sourceSql28);
 
         //TODO 4. 读取doris的表
-        tableEnv.executeSql(destinationSql1);
-        tableEnv.executeSql(destinationSql2);
-        tableEnv.executeSql(destinationSql3);
-        tableEnv.executeSql(destinationSql4);
-        tableEnv.executeSql(destinationSql5);
-        tableEnv.executeSql(destinationSql6);
-        tableEnv.executeSql(destinationSql7);
-        tableEnv.executeSql(destinationSql8);
-        tableEnv.executeSql(destinationSql9);
-        tableEnv.executeSql(destinationSql10);
-        tableEnv.executeSql(destinationSql11);
-        tableEnv.executeSql(destinationSql12);
-        tableEnv.executeSql(destinationSql13);
-        tableEnv.executeSql(destinationSql14);
-        tableEnv.executeSql(destinationSql15);
-        tableEnv.executeSql(destinationSql16);
-        tableEnv.executeSql(destinationSql17);
-        tableEnv.executeSql(destinationSql18);
-        tableEnv.executeSql(destinationSql19);
-        tableEnv.executeSql(destinationSql20);
-        tableEnv.executeSql(destinationSql21);
-        tableEnv.executeSql(destinationSql22);
-        tableEnv.executeSql(destinationSql23);
-        tableEnv.executeSql(destinationSql24);
-
+        tableEnv.executeSql(destinationSql0);
+        //tableEnv.sqlQuery("select * from doris_tbl_test").execute().print();
+        //tableEnv.executeSql(destinationSql1);
+        //tableEnv.executeSql(destinationSql2);
+        //tableEnv.executeSql(destinationSql3);
+        //tableEnv.executeSql(destinationSql4);
+        //tableEnv.executeSql(destinationSql5);
+        //tableEnv.executeSql(destinationSql6);
+        //tableEnv.executeSql(destinationSql7);
+        //tableEnv.executeSql(destinationSql8);
+        //tableEnv.executeSql(destinationSql9);
+        //tableEnv.executeSql(destinationSql10);
+        //tableEnv.executeSql(destinationSql11);
+        //tableEnv.executeSql(destinationSql12);
+        //tableEnv.executeSql(destinationSql13);
+        //tableEnv.executeSql(destinationSql14);
+        //tableEnv.executeSql(destinationSql15);
+        //tableEnv.executeSql(destinationSql16);
+        //tableEnv.executeSql(destinationSql17);
+        //tableEnv.executeSql(destinationSql18);
+        //tableEnv.executeSql(destinationSql19);
+        //tableEnv.executeSql(destinationSql20);
+        //tableEnv.executeSql(destinationSql21);
+        //tableEnv.executeSql(destinationSql22);
+        //tableEnv.executeSql(destinationSql23);
+        //tableEnv.executeSql(destinationSql24);
+        //tableEnv.executeSql(destinationSql25);
+        //tableEnv.executeSql(destinationSql26);
         //TODO 5. 插入数据
 
-        // 创建语句集
+        //创建语句集
         StatementSet insertSet = tableEnv.createStatementSet();
 
         // 增加insert语句
-        insertSet.addInsertSql("INSERT INTO doris_ods_mes_management_employee_user SELECT\n" +
+        insertSet.addInsertSql("INSERT INTO doris_tbl_test SELECT ID,NAME,PID FROM tbl_test");
+
+
+        /*insertSet.addInsertSql("INSERT INTO doris_ods_mes_management_employee_user SELECT\n" +
                 "  cast(USER_ID as string) USER_ID\n" +
                 ", USER_NAME\n" +
                 ", HFWK_PASSWORD\n" +
@@ -876,8 +903,7 @@ public class OdsMesTotal {
                 ", ENABLE_FLAG" +
                 ", CID" +
                 ", WORKSHOP_ID" +
-                ", CURRENT_TIMESTAMP from ods_mes_supplychain_workcell");
+                ", CURRENT_TIMESTAMP from ods_mes_supplychain_workcell");*/
         insertSet.execute();
-
     }
 }

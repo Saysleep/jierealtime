@@ -16,7 +16,7 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <flink.version>1.13.0</flink.version>
+        <flink.version>1.14.4</flink.version>
         <scala.version>2.12</scala.version>
         <hadoop.version>3.1.3</hadoop.version>
     </properties>
@@ -28,25 +28,65 @@
         <version>${hadoop.version}</version>
     </dependency>
 
-    <dependency>
+<!--    <dependency>
         <groupId>com.ververica</groupId>
-        <!-- add the dependency matching your database -->
         <artifactId>flink-connector-mysql-cdc</artifactId>
-        <!-- The dependency is available only for stable releases, SNAPSHOT dependency need build by yourself. -->
-        <version>2.2.0</version>
-    </dependency>
+        <version>2.3.0</version>
+    </dependency>-->
 
     <dependency>
         <groupId>com.ververica</groupId>
         <artifactId>flink-connector-oracle-cdc</artifactId>
-        <version>2.2.0</version>
+        <version>2.3.0</version>
     </dependency>
 
 
     <dependency>
         <groupId>com.ververica</groupId>
         <artifactId>flink-connector-sqlserver-cdc</artifactId>
-        <version>2.2.0</version>
+        <version>2.3.0</version>
+    </dependency>
+
+
+
+    <!--flink-doris-connector-->
+    <!-- https://mvnrepository.com/artifact/org.apache.doris/flink-doris-connector-1.14 -->
+    <dependency>
+        <groupId>org.apache.doris</groupId>
+        <artifactId>flink-doris-connector-1.14_2.12</artifactId>
+        <version>1.1.0</version>
+    </dependency>
+<!--    <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-shaded-guava</artifactId>
+        <version>30.1.1-jre-14.0</version>
+    </dependency>-->
+<!--    <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>connect-api</artifactId>
+        <version>2.7.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>connect-runtime</artifactId>
+        <version>2.7.0</version>
+    </dependency>-->
+
+    <dependency>
+    <groupId>org.apache.flink</groupId>
+    <artifactId>flink-connector-kafka_2.12</artifactId>
+    <version>${flink.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-table-api-java-bridge_2.12</artifactId>
+        <version>${flink.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-table-planner_2.12</artifactId>
+        <version>${flink.version}</version>
     </dependency>
 
     <dependency>
@@ -57,18 +97,13 @@
 
     <dependency>
         <groupId>org.apache.flink</groupId>
-        <artifactId>flink-streaming-java_${scala.version}</artifactId>
+        <artifactId>flink-streaming-java_2.12</artifactId>
         <version>${flink.version}</version>
     </dependency>
 
-    <!--<dependency>
-        <groupId>org.apache.flink</groupId>
-        <artifactId>flink-connector-kafka_${scala.version}</artifactId>
-        <version>${flink.version}</version>
-    </dependency>-->
     <dependency>
         <groupId>org.apache.flink</groupId>
-        <artifactId>flink-clients_${scala.version}</artifactId>
+        <artifactId>flink-clients_2.12</artifactId>
         <version>${flink.version}</version>
     </dependency>
 
@@ -87,23 +122,9 @@
 
     <dependency>
         <groupId>org.apache.flink</groupId>
-        <artifactId>flink-connector-jdbc_${scala.version}</artifactId>
+        <artifactId>flink-connector-jdbc_2.12</artifactId>
         <version>${flink.version}</version>
     </dependency>
-
-    <!--flink-doris-connector-->
-    <dependency>
-        <groupId>org.apache.doris</groupId>
-        <!--<artifactId>flink-doris-connector-
-        1.14_2.12</artifactId>-->
-        <artifactId>flink-doris-connector-1.13_2.12</artifactId>
-        <!--<artifactId>flink-doris-connector-
-        1.12_2.12</artifactId>-->
-        <!--<artifactId>flink-doris-connector-
-        1.11_2.12</artifactId>-->
-        <version>1.0.3</version>
-    </dependency>
-
 
     <!---->
 
@@ -126,6 +147,7 @@
     </dependency>
 
 
+
     <!-- 如果不引入 flink-table 相关依赖，则会报错：
 Caused by: java.lang.ClassNotFoundException:
 org.apache.flink.connector.base.source.reader.RecordEmitter
@@ -133,38 +155,39 @@ org.apache.flink.connector.base.source.reader.RecordEmitter
 -->
 
     <dependency>
-        <groupId>org.apache.flink</groupId>
-        <artifactId>flink-table-api-java-bridge_2.12</artifactId>
-        <version>1.13.0</version>
-    </dependency>
-
-    <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
         <version>1.2.68</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-shaded-guava -->
 
-    <dependency>
+
+<!--    <dependency>
         <groupId>org.apache.flink</groupId>
-        <artifactId>flink-table-planner-blink_2.12</artifactId>
-        <version>1.13.0</version>
-    </dependency>
+        <artifactId>flink-shaded-guava</artifactId>
+        <version>18.0-13.0</version>
+    </dependency>-->
+
     <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>druid</artifactId>
         <version>1.1.17</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-runtime-web -->
     <dependency>
         <groupId>org.apache.flink</groupId>
         <artifactId>flink-runtime-web_2.12</artifactId>
-        <version>1.13.0</version>
+        <version>1.14.0</version>
+        <scope>test</scope>
     </dependency>
 
-    <!--<dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.45</version>
-    </dependency>--><!-- -->
+
+    <dependency>
+        <groupId>com.github.edwgiz</groupId>
+        <artifactId>maven-shade-plugin.log4j2-cachefile-transformer</artifactId>
+        <version>2.6.1</version>
+    </dependency>
+
 
     <!--<dependency>
         <groupId>org.apache.hive</groupId>
@@ -218,6 +241,8 @@ org.apache.flink.connector.base.source.reader.RecordEmitter
                                 <!-- connector和format依赖的工厂类打包时会相互覆盖，需要使用ServicesResourceTransformer解决-->
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <!--<transformer
+                                        implementation="com.github.edwgiz.mavenShadePlugin.log4j2CacheTransformer.PluginsCacheFileTransformer"/>-->
                             </transformers>
                         </configuration>
                     </execution>

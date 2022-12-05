@@ -1,6 +1,12 @@
 package com.jie.bigdata.realtime.utils;
 
 public class SomeSql {
+    public static String sourceSql0 = "" +
+            "CREATE TABLE tbl_test (" +
+            "ID INT," +
+            "NAME STRING," +
+            "PID INT) " + DDLUtil.getOracleDDL("TBL_TEST");
+
     public static String sourceSql1 = "" +
             "CREATE TABLE ods_mes_management_employee_user ( " +
             "USER_ID INT," +
@@ -42,19 +48,7 @@ public class SomeSql {
             "AUTO_START_MENU_ID INT," +
             "LOGIN_COUNT INT," +
             "DEPARTMENT STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HFWK_USERS', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HFWK_USERS") ;
     //HPS_MO_OPERATION_SEQUENCE
     public static String sourceSql2 = "CREATE TABLE ods_mes_production_operation_sequence ( " +
             "        CREATION_DATE      TIMESTAMP,\n" +
@@ -91,19 +85,7 @@ public class SomeSql {
             "        LABOR_UOM          STRING,\n" +
             "        MACHINE_TIME       STRING,\n" +
             "        MACHINE_UOM        STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HPS_MO_OPERATION_SEQUENCE', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HPS_MO_OPERATION_SEQUENCE");
     //HCM_CALENDAR
     public static String sourceSql3 = "" +
             "CREATE TABLE ods_mes_production_prodline_calendar ( " +
@@ -120,19 +102,7 @@ public class SomeSql {
             "PLANT_ID INT ," +
             "CALENDAR_CODE STRING ," +
             "CID INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_CALENDAR', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_CALENDAR");
     //HCM_CALENDAR_SHIFT
     public static String sourceSql4 = "" +
             "CREATE TABLE ods_mes_production_prodline_calendar_shift ( " +
@@ -155,19 +125,7 @@ public class SomeSql {
             "AVAILABLE_CAPACITY INT," +
             "REMARK             STRING," +
             "CID                INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_CALENDAR_SHIFT', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_CALENDAR_SHIFT");
     //HME_EO_REQUIREMENT
     public static String sourceSql5 = "" +
             "CREATE TABLE ods_mes_production_prodline_component ( " +
@@ -191,19 +149,7 @@ public class SomeSql {
             "LOCATOR_CODE      STRING," +
             "CID               INT," +
             "RECOIL_FLAG       STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HME_EO_REQUIREMENT', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HME_EO_REQUIREMENT");
     //HME_EXECUTIVE_ORDER
     public static String sourceSql6 = "" +
             "CREATE TABLE ods_mes_production_prodline_executive_order (  " +
@@ -244,19 +190,7 @@ public class SomeSql {
             "WIP_BARCODE_QTY         INT," +
             "WIP_BARCODE_SCRAPED_QTY INT," +
             "REMARKS                 STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HME_EXECUTIVE_ORDER', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HME_EXECUTIVE_ORDER");
     //HCM_PRODUCTION_LINE_GROUP
     public static String sourceSql7 = "" +
             "CREATE TABLE ods_mes_production_prodline_group ( " +
@@ -288,19 +222,7 @@ public class SomeSql {
             "RELEASE_CONCURRENT_RULE     STRING," +
             "PLAN_COLLABORATIVE_RULE     STRING," +
             "CID                         INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_PRODUCTION_LINE_GROUP', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_PRODUCTION_LINE_GROUP");
     //HCM_PRODUCTION_LINE
     public static String sourceSql8 = "" +
             "CREATE TABLE ods_mes_production_prodline_line ( " +
@@ -339,19 +261,7 @@ public class SomeSql {
             "INVENTORY_WAREHOUSE_CODE    STRING," +
             "INVENTORY_LOCATOR_CODE      STRING," +
             "CID                         INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_PRODUCTION_LINE', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_PRODUCTION_LINE");
     //HCM_PROD_LINE_ITEM
     public static String sourceSql9 = "" +
             "CREATE TABLE ods_mes_production_prodline_line_item ( " +
@@ -384,19 +294,7 @@ public class SomeSql {
             "INVENTORY_WAREHOUSE_CODE  STRING," +
             "INVENTORY_LOCATOR_CODE    STRING," +
             "CID                       INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_PROD_LINE_ITEM', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_PROD_LINE_ITEM");
     //HPS_MAKE_ORDER
     public static String sourceSql10 = "" +
             "CREATE TABLE ods_mes_production_prodline_make_order ( " +
@@ -484,19 +382,7 @@ public class SomeSql {
             "SO_ITEM                   STRING," +
             "ENABLE_FLAG               STRING," +
             "HEAT_SPLIT_FLAG           STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HPS_MAKE_ORDER', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HPS_MAKE_ORDER");
     //HME_JIE_MOVE_RECORD
     public static String sourceSql11 = "" +
             "CREATE TABLE ods_mes_production_prodline_move_record ( " +
@@ -522,19 +408,7 @@ public class SomeSql {
             "ATTRIBUTE3          STRING," +
             "ATTRIBUTE4          STRING," +
             "ATTRIBUTE5          STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HME_JIE_MOVE_RECORD', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HME_JIE_MOVE_RECORD");
     //HME_EO_OPERATION_SEQUENCE
     public static String sourceSql12 = "" +
             "CREATE TABLE ods_mes_production_prodline_operation_sequence ( " +
@@ -549,19 +423,7 @@ public class SomeSql {
             "FIRST_OPS_FLAG    STRING," +
             "LAST_OPS_FLAG     STRING," +
             "CID               INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HME_EO_OPERATION_SEQUENCE', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HME_EO_OPERATION_SEQUENCE");
     //HCM_PROD_LINE_WKCG_REL
     public static String sourceSql13 = "" +
             "CREATE TABLE ods_mes_production_prodline_wkcg_rel ( " +
@@ -576,19 +438,7 @@ public class SomeSql {
             "PRIORITY          INT," +
             "ENABLE_FLAG       STRING," +
             "CID               INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_PROD_LINE_WKCG_REL', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_PROD_LINE_WKCG_REL");
     //HCM_STANDARD_OP_B & HCM_STANDARD_OP_TL
     public static String sourceSql14 = "" +
             "CREATE TABLE ods_mes_production_standard_operations1 ( " +
@@ -619,19 +469,7 @@ public class SomeSql {
             "ATTRIBUTE3             STRING," +
             "ATTRIBUTE4             STRING," +
             "ATTRIBUTE5             STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_STANDARD_OP_B', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_STANDARD_OP_B");
     public static String sourceSql15 = ""+
             "CREATE TABLE ods_mes_production_standard_operations2 ( " +
             "CREATION_DATE     timestamp," +
@@ -643,19 +481,7 @@ public class SomeSql {
             "DESCRIPTION       string," +
             "`LANGUAGE`          string," +
             "SOURCE_LANGUAGE   string" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_STANDARD_OP_TL', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_STANDARD_OP_TL");
     //HME_JIE_WIP_BARCODE
     public static String sourceSql16 = "" +
             "CREATE TABLE ods_mes_production_wip_barcode ( " +
@@ -690,19 +516,7 @@ public class SomeSql {
             "ATTRIBUTE3                STRING," +
             "ATTRIBUTE4                STRING," +
             "ATTRIBUTE5                STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HME_JIE_WIP_BARCODE', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HME_JIE_WIP_BARCODE");
     //HCM_PLANT
     public static String sourceSql17 = "" +
             "CREATE TABLE ods_mes_supplychain_material_factory ( " +
@@ -717,19 +531,7 @@ public class SomeSql {
             "DESCRIPTIONS       string," +
             "ENABLE_FLAG        string," +
             "MAIN_PLANT_FLAG    string" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_PLANT', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_PLANT");
     //HCM_ITEM_B & HCM_ITEM_TL & HCM_PLANT & HCM_JIE_ITEM_GROUP
     public static String sourceSql18 = "" +
             "CREATE TABLE ods_mes_supplychain_material_item1 ( " +
@@ -823,19 +625,7 @@ public class SomeSql {
             "ATTRIBUTE8                  STRING," +
             "ATTRIBUTE9                  STRING," +
             "ATTRIBUTE10                 STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_ITEM_B', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_ITEM_B");
     public static String sourceSql19 = "" +
             "CREATE TABLE ods_mes_supplychain_material_item2 ( " +
             "CREATED_BY        INT," +
@@ -848,19 +638,7 @@ public class SomeSql {
             "PLANT_ID          INT," +
             "ITEM_ID           INT," +
             "DESCRIPTIONS      STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_ITEM_TL', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_ITEM_TL");
     public static String sourceSql20 = "" +
             "CREATE TABLE ods_mes_supplychain_material_item3 ( " +
             "CREATED_BY         INT," +
@@ -874,19 +652,7 @@ public class SomeSql {
             "DESCRIPTIONS       STRING," +
             "ENABLE_FLAG        STRING," +
             "MAIN_PLANT_FLAG    STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_PLANT', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_PLANT");
     public static String sourceSql21 = "" +
             "CREATE TABLE ods_mes_supplychain_material_item4 ( " +
             "CREATED_BY        INT," +
@@ -911,19 +677,7 @@ public class SomeSql {
             "ATTRIBUTE8        STRING," +
             "ATTRIBUTE9        STRING," +
             "ATTRIBUTE10       STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_JIE_ITEM_GROUP', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_JIE_ITEM_GROUP");
     //HCM_ITEM_B
     public static String sourceSql22 = "" +
             "CREATE TABLE ods_mes_supplychain_material_item_b ( " +
@@ -1017,19 +771,7 @@ public class SomeSql {
             "ATTRIBUTE8                  STRING," +
             "ATTRIBUTE9                  STRING," +
             "ATTRIBUTE10                 STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_ITEM_B', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_ITEM_B");
     //HCM_LOCATOR
     public static String sourceSql23 = "" +
             "CREATE TABLE ods_mes_supplychain_material_locator ( " +
@@ -1046,19 +788,7 @@ public class SomeSql {
             "ENABLE_FLAG       STRING," +
             "CID               INT," +
             "LOCATOR_TYPE      STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_LOCATOR', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_LOCATOR");
     //HME_EO_REQUIREMENT
     public static String sourceSql24 = "" +
             "CREATE TABLE ods_mes_supplychain_material_requirement ( " +
@@ -1082,19 +812,7 @@ public class SomeSql {
             "LOCATOR_CODE      STRING," +
             "CID               INT," +
             "RECOIL_FLAG       STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HME_EO_REQUIREMENT', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HME_EO_REQUIREMENT");
     //HCM_WAREHOUSE
     public static String sourceSql25 = "" +
             "CREATE TABLE ods_mes_supplychain_material_warehouse ( " +
@@ -1118,19 +836,7 @@ public class SomeSql {
             "CID                  INT," +
             "THING_LABEL_FLAG     STRING," +
             "WORKSHOP_ID          INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_WAREHOUSE', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_WAREHOUSE");
     //HME_JIE_WIP_BARCODE
     public static String sourceSql26 = "" +
             "CREATE TABLE ods_mes_supplychain_material_wip_barcode ( " +
@@ -1165,19 +871,7 @@ public class SomeSql {
             "ATTRIBUTE3                STRING," +
             "ATTRIBUTE4                STRING," +
             "ATTRIBUTE5                STRING" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HME_JIE_WIP_BARCODE', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HME_JIE_WIP_BARCODE");
     //HCM_SCHEDULE_REGION
     public static String sourceSql27 = "" +
             "CREATE TABLE ods_mes_supplychain_plan_region ( " +
@@ -1198,19 +892,7 @@ public class SomeSql {
             "FORWARD_PLANNING_TIME_FENCE INT," +
             "RELEASE_TIME_FENCE          INT," +
             "ORDER_TIME_FENCE            INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_SCHEDULE_REGION', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_SCHEDULE_REGION");
     //HCM_WORKCELL
     public static String sourceSql28 = "" +
             "CREATE TABLE ods_mes_supplychain_workcell ( " +
@@ -1228,57 +910,87 @@ public class SomeSql {
             "ENABLE_FLAG       STRING," +
             "CID               INT," +
             "WORKSHOP_ID       INT" +
-            ") WITH ( " +
-            " 'connector' = 'oracle-cdc', " +
-            " 'hostname' = '172.16.10.57', " +
-            " 'port' = '1521', " +
-            " 'username' = 'hcms', " +
-            " 'password' = 'hcmsprod', " +
-            " 'database-name' = 'MESPROD', " +
-            " 'schema-name' = 'HCMS'," +
-            " 'table-name' = 'HCM_WORKCELL', " +
-            " 'scan.startup.mode' = 'latest-offset'," +
-            "'debezium.log.mining.strategy' = 'online_catalog'," +
-            "'debezium.log.mining.continuous.mine' = 'true'" +
-            ")";
+            ")" + DDLUtil.getOracleDDL("HCM_WORKCELL");
+    public static String sourceSql29 = "" +
+            "CREATE TABLE ods_mes_production_prodline_version1 ( " +
+            "CREATED_BY            INT," +
+            "CREATION_DATE         TIMESTAMP," +
+            "LAST_UPDATED_BY       INT," +
+            "LAST_UPDATE_DATE      TIMESTAMP," +
+            "LAST_UPDATE_LOGIN     INT," +
+            "PRODUCTION_VERSION_ID INT," +
+            "PLANT_ID              INT," +
+            "ITEM_ID               INT," +
+            "PRODUCTION_VERSION    STRING," +
+            "BOM_ID                INT," +
+            "ROUTING_ID            INT," +
+            "START_DATE            TIMESTAMP," +
+            "END_DATE              TIMESTAMP," +
+            "CID                   INT" +
+            ")" + DDLUtil.getOracleDDL("HCM_PRODUCTION_VERSION_B");
+    public static String sourceSql30 = "" +
+            "CREATE TABLE ods_mes_production_prodline_version2 ( " +
+            "CREATED_BY            INT," +
+            "CREATION_DATE         TIMESTAMP," +
+            "LAST_UPDATED_BY       INT," +
+            "LAST_UPDATE_DATE      TIMESTAMP," +
+            "LAST_UPDATE_LOGIN     INT," +
+            "PRODUCTION_VERSION_ID INT," +
+            "DESCRIPTIONS          STRING," +
+            "`LANGUAGE`             STRING," +
+            "SOURCE_LANGUAGE       STRING" +
+            ")" + DDLUtil.getOracleDDL("HCM_PRODUCTION_VERSION_TL");
+    public static String sourceSql31 = "" +
+            "CREATE TABLE ods_mes_production_prodline_version_b ( " +
+            "CREATED_BY            INT," +
+            "CREATION_DATE         TIMESTAMP," +
+            "LAST_UPDATED_BY       INT," +
+            "LAST_UPDATE_DATE      TIMESTAMP," +
+            "LAST_UPDATE_LOGIN     INT," +
+            "PRODUCTION_VERSION_ID INT," +
+            "PLANT_ID              INT," +
+            "ITEM_ID               INT," +
+            "PRODUCTION_VERSION    STRING," +
+            "BOM_ID                INT," +
+            "ROUTING_ID            INT," +
+            "START_DATE            TIMESTAMP," +
+            "END_DATE              TIMESTAMP," +
+            "CID                   INT" +
+            ")" + DDLUtil.getOracleDDL("HCM_PRODUCTION_VERSION_B");
 
+    public static String destinationSql0 = "CREATE TABLE doris_tbl_test (\n" +
+            "  id int,\n" +
+            "  name string,\n" +
+            "  pid int\n" +
+            ")" + DDLUtil.getDorisDDL("tbl_test");
     //ods_mes_management_employee_user
     public static String destinationSql1 = "CREATE TABLE doris_ods_mes_management_employee_user (\n" +
             " USER_ID string " +
             ", USER_NAME string" +
             ", HFWK_PASSWORD string" +
             ", USER_PASSWORD string" +
-            ", PASSWORD_TIMESTAMP TIMESTAMP" +
+            ", PASSWORD_DATE TIMESTAMP" +
             ", PASSWORD_EXPIRATION string"+
             ", LOGIN_EXPIRATION string"+
             ", ACTIVE_EXPIRATION string"+
-            ", LAST_LOGON_TIMESTAMP TIMESTAMP"+
-            ", START_TIMESTAMP TIMESTAMP"+
-            ", END_TIMESTAMP TIMESTAMP"+
+            ", LAST_LOGON_DATE TIMESTAMP"+
+            ", START_DATE TIMESTAMP"+
+            ", END_DATE TIMESTAMP"+
             ", DESCRIPTION string"+
             ", CID string"+
-            ", CREATION_TIMESTAMP TIMESTAMP"+
+            ", CREATION_DATE TIMESTAMP"+
             ", CREATED_BY string"+
-            ", LAST_UPTIMESTAMPD_BY string"+
-            ", LAST_UPTIMESTAMP_TIMESTAMP TIMESTAMP"+
-            ", LAST_UPTIMESTAMP_LOGIN string"+
+            ", LAST_UPDATED_BY string"+
+            ", LAST_UPDATE_DATE TIMESTAMP"+
+            ", LAST_UPDATE_LOGIN string"+
             ", ATTRIBUTE_CATEGORY String"+
             ", PASSWORD_ERROR_TIMES string"+
             ", PASSWORD_RESET_FLAG string"+
             ", AUTO_START_MENU_ID string"+
             ", LOGIN_COUNT string"+
             ", DEPARTMENT string"+
-            ", UPTIMESTAMP_TIMESTAMPTIME TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_management_employee_user',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            ", UPDATE_DATETIME TIMESTAMP" +
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_management_employee_user");
     //ods_mes_production_operation_sequence
     public static String destinationSql2 = "CREATE TABLE doris_ods_mes_production_operation_sequence(\n" +
             " KID int,\n" +
@@ -1316,16 +1028,7 @@ public class SomeSql {
             "MACHINE_TIME string,\n" +
             "MACHINE_UOM string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_operation_sequence',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_operation_sequence");
     //
     public static String destinationSql3 = "CREATE TABLE doris_ods_mes_production_prodline_calendar (\n" +
             "calendar_id decimal(27,3)," +
@@ -1342,16 +1045,7 @@ public class SomeSql {
             "calendar_code string," +
             "cid double," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_calendar',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_calendar");
     //
     public static String destinationSql4 = "CREATE TABLE doris_ods_mes_production_prodline_calendar_shift (\n" +
             "calendar_shift_id decimal(27,3)," +
@@ -1374,16 +1068,7 @@ public class SomeSql {
             "remark string," +
             "cid int," +
             "update_datetime timestamp" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_calendar_shift',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_calendar_shift");
     //
     public static String destinationSql5 = "CREATE TABLE doris_ods_mes_production_prodline_component (\n" +
             "KID STRING,\n" +
@@ -1407,16 +1092,7 @@ public class SomeSql {
             "CID STRING,\n" +
             "RECOIL_FLAG STRING,\n" +
             "update_datetime timestamp" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_component',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_component");
     //
     public static String destinationSql6 = "CREATE TABLE doris_ods_mes_production_prodline_executive_order (\n" +
             "EO_ID decimal," +
@@ -1457,16 +1133,7 @@ public class SomeSql {
             "WIP_BARCODE_SCRAPED_QTY decimal," +
             "REMARKS string," +
             "update_datetime timestamp" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_executive_order',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_executive_order");
     //
     public static String destinationSql7 = "CREATE TABLE doris_ods_mes_production_prodline_group (\n" +
             "PROD_LINE_GROUP_ID int," +
@@ -1498,16 +1165,7 @@ public class SomeSql {
             "PLAN_COLLABORATIVE_RULE string," +
             "CID int," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_group',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_group");
     //
     public static String destinationSql8 = "CREATE TABLE doris_ods_mes_production_prodline_line (\n" +
             "prod_line_id decimal," +
@@ -1546,16 +1204,7 @@ public class SomeSql {
             "inventory_locator_code string," +
             "cid decimal," +
             "update_datetime timestamp" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_line',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_line");
     //
     public static String destinationSql9 = "CREATE TABLE doris_ods_mes_production_prodline_line_item (\n" +
             "prod_line_id decimal," +
@@ -1588,16 +1237,7 @@ public class SomeSql {
             "inventory_locator_code string," +
             "cid decimal," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_line_item',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_line_item");
     //
     public static String destinationSql10 = "CREATE TABLE doris_ods_mes_production_prodline_make_order (\n" +
             "MAKE_ORDER_ID decimal," +
@@ -1685,16 +1325,7 @@ public class SomeSql {
             "ENABLE_FLAG string," +
             "HEAT_SPLIT_FLAG string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_make_order',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_make_order");
     //
     public static String destinationSql11 = "CREATE TABLE doris_ods_mes_production_prodline_move_record (\n" +
             "KID string," +
@@ -1720,16 +1351,7 @@ public class SomeSql {
             "ATTRIBUTE4 string," +
             "ATTRIBUTE5 string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_move_record',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_move_record");
     //
     public static String destinationSql12 = "CREATE TABLE doris_ods_mes_production_prodline_operation_sequence (\n" +
             "KID STRING," +
@@ -1744,16 +1366,7 @@ public class SomeSql {
             "LAST_OPS_FLAG STRING," +
             "CID string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_operation_sequence',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_operation_sequence");
     //
     public static String destinationSql13 = "CREATE TABLE doris_ods_mes_production_prodline_wkcg_rel (\n" +
             "REL_ID string," +
@@ -1768,16 +1381,7 @@ public class SomeSql {
             "ENABLE_FLAG string," +
             "CID string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_prodline_wkcg_rel',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_wkcg_rel");
     //
     public static String destinationSql14 = "CREATE TABLE doris_ods_mes_production_standard_operations (\n" +
             "STANDARD_OP_ID int," +
@@ -1804,16 +1408,7 @@ public class SomeSql {
             "HEAT_TREATMENT_FLAG string," +
             "HEAT_TREATMENT_OS_FLAG string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_standard_operations',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_standard_operations");
     //
     public static String destinationSql15 = "CREATE TABLE doris_ods_mes_production_wip_barcode (\n" +
             "KID decimal," +
@@ -1848,16 +1443,7 @@ public class SomeSql {
             "ATTRIBUTE4 string," +
             "ATTRIBUTE5 string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_production_wip_barcode',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_wip_barcode");
     //
     public static String destinationSql16 = "CREATE TABLE doris_ods_mes_supplychain_material_factory (\n" +
             "PLANT_ID int," +
@@ -1872,16 +1458,7 @@ public class SomeSql {
             "ENABLE_FLAG string," +
             "MAIN_PLANT_FLAG string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_material_factory',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_material_factory");
     //
     public static String destinationSql17 = "CREATE TABLE doris_ods_mes_supplychain_material_item (\n" +
             "MATERIAL_ID decimal," +
@@ -1965,16 +1542,7 @@ public class SomeSql {
             "WIDE string," +
             "HIGH string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_material_item',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_material_item");
     //
     public static String destinationSql18 = "CREATE TABLE doris_ods_mes_supplychain_material_item_b (\n" +
             "material_id decimal," +
@@ -2068,16 +1636,7 @@ public class SomeSql {
             "attribute9 string," +
             "attribute10 string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_material_item_b',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_material_item_b");
     //
     public static String destinationSql19 = "CREATE TABLE doris_ods_mes_supplychain_material_locator (\n" +
             "KID int," +
@@ -2094,16 +1653,7 @@ public class SomeSql {
             "CID int," +
             "LOCATOR_TYPE string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_material_locator',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_material_locator");
     //
     public static String destinationSql20 = "CREATE TABLE doris_ods_mes_supplychain_material_requirement (\n" +
             "KID STRING," +
@@ -2127,16 +1677,7 @@ public class SomeSql {
             "CID STRING," +
             "RECOIL_FLAG STRING," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_material_requirement',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_material_requirement");
     //
     public static String destinationSql21 = "CREATE TABLE doris_ods_mes_supplychain_material_warehouse (\n" +
             "KID int," +
@@ -2160,16 +1701,7 @@ public class SomeSql {
             "THING_LABEL_FLAG string," +
             "WORKSHOP_ID int," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_material_warehouse',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_material_warehouse");
     //
     public static String destinationSql22 = "CREATE TABLE doris_ods_mes_supplychain_material_wip_barcode (\n" +
             "KID decimal," +
@@ -2204,16 +1736,7 @@ public class SomeSql {
             "ATTRIBUTE4 string," +
             "ATTRIBUTE5 string," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_material_wip_barcode',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_material_wip_barcode");
     //
     public static String destinationSql23 = "CREATE TABLE doris_ods_mes_supplychain_plan_region (\n" +
             "SCHEDULE_REGION_ID int," +
@@ -2234,16 +1757,7 @@ public class SomeSql {
             "RELEASE_TIME_FENCE decimal," +
             "ORDER_TIME_FENCE decimal," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_plan_region',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_plan_region");
     //
     public static String destinationSql24 = "CREATE TABLE doris_ods_mes_supplychain_workcell (\n" +
             "WORKCELL_ID decimal," +
@@ -2261,14 +1775,39 @@ public class SomeSql {
             "CID decimal," +
             "WORKSHOP_ID decimal," +
             "update_datetime TIMESTAMP" +
-            "    ) \n" +
-            "    WITH (\n" +
-            "      'connector' = 'doris',\n" +
-            "      'fenodes' = '10.0.0.50:8030',\n" +
-            "      'table.identifier' = 'test_db.ods_mes_supplychain_workcell',\n" +
-            "       'sink.batch.size' = '2',\n" +
-            "       'sink.batch.interval'='1',\n" +
-            "      'username' = 'root',\n" +
-            "      'password' = '000000'\n" +
-            ")";
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_supplychain_workcell");
+    public static String destinationSql25 = "CREATE TABLE doris_ods_mes_production_prodline_version (\n" +
+            "PRODUCTION_VERSION_ID decimal," +
+            "CREATED_BY decimal," +
+            "CREATION_DATE timestamp," +
+            "LAST_UPDATED_BY decimal," +
+            "LAST_UPDATE_DATE timestamp," +
+            "LAST_UPDATE_LOGIN decimal," +
+            "PLANT_ID decimal," +
+            "material_id decimal," +
+            "PRODUCTION_VERSION string," +
+            "BOM_ID decimal," +
+            "ROUTING_ID decimal," +
+            "START_DATE timestamp," +
+            "END_DATE timestamp," +
+            "DESCRIPTIONS string," +
+            "update_datetime TIMESTAMP" +
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_version");
+    public static String destinationSql26 = "CREATE TABLE doris_ods_mes_production_prodline_version_b (\n" +
+            "PRODUCTION_VERSION_ID decimal," +
+            "CREATED_BY decimal," +
+            "CREATION_DATE timestamp," +
+            "LAST_UPDATED_BY decimal," +
+            "LAST_UPDATE_DATE timestamp," +
+            "LAST_UPDATE_LOGIN decimal," +
+            "PLANT_ID decimal," +
+            "material_id decimal," +
+            "PRODUCTION_VERSION STRING," +
+            "BOM_ID decimal," +
+            "ROUTING_ID decimal," +
+            "START_DATE timestamp," +
+            "END_DATE timestamp," +
+            "CID decimal," +
+            "update_datetime TIMESTAMP" +
+            "    ) \n" + DDLUtil.getDorisDDL("ods_mes_production_prodline_version_b");
 }
