@@ -959,9 +959,9 @@ public class SomeSql {
             ")" + DDLUtil.getOracleDDL("HCM_PRODUCTION_VERSION_B");
 
     public static String destinationSql0 = "CREATE TABLE doris_tbl_test (\n" +
-            "  id int,\n" +
-            "  name string,\n" +
-            "  pid int\n" +
+            "  ID INT,\n" +
+            "  NAME STRING,\n" +
+            "  PID INT\n" +
             ")" + DDLUtil.getDorisDDL("tbl_test");
     //ods_mes_management_employee_user
     public static String destinationSql1 = "CREATE TABLE doris_ods_mes_management_employee_user (\n" +

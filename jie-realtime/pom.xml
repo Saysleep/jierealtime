@@ -54,13 +54,19 @@
     <dependency>
         <groupId>org.apache.doris</groupId>
         <artifactId>flink-doris-connector-1.14_2.12</artifactId>
-        <version>1.1.0</version>
+        <version>1.0.3</version>
     </dependency>
+
 <!--    <dependency>
         <groupId>org.apache.flink</groupId>
         <artifactId>flink-shaded-guava</artifactId>
-        <version>30.1.1-jre-14.0</version>
+        <version>18.0-13.0</version>
     </dependency>-->
+    <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>kafka-clients</artifactId>
+        <version>2.7.0</version>
+    </dependency>
 <!--    <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-api</artifactId>
@@ -114,11 +120,11 @@
     </dependency>
 
 
-    <dependency>
+<!--    <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>8.0.16</version>
-    </dependency>
+    </dependency>-->
 
     <dependency>
         <groupId>org.apache.flink</groupId>
@@ -126,6 +132,11 @@
         <version>${flink.version}</version>
     </dependency>
 
+    <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>connect-runtime</artifactId>
+        <version>2.7.0</version>
+    </dependency>
     <!---->
 
     <!-- <dependency>
@@ -174,12 +185,12 @@ org.apache.flink.connector.base.source.reader.RecordEmitter
         <version>1.1.17</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-runtime-web -->
-    <dependency>
+<!--    <dependency>
         <groupId>org.apache.flink</groupId>
         <artifactId>flink-runtime-web_2.12</artifactId>
         <version>1.14.0</version>
         <scope>test</scope>
-    </dependency>
+    </dependency>-->
 
 
     <dependency>

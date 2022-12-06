@@ -8,9 +8,10 @@ public class DDLUtil {
                 "      'table.identifier' = 'realtime_database." + table +"',\n" +
                 "      'sink.enable-delete' = 'true',\n" +
                 "       'doris.batch.size' = '2048',\n" +
-                "       'sink.label-prefix' = 'doris_mes'," +
-                "       'sink.properties.format' = 'json'," +
-                "       'sink.properties.read_json_by_line' = 'true'," +
+                //"       'sink.enable-2pc' = 'true',\n" +
+                //"       'sink.label-prefix' = 'doris_mes',\n" +
+                //"       'sink.properties.format' = 'json'," +
+                //"       'sink.properties.read_json_by_line' = 'true'," +
                 "      'username' = 'root',\n" +
                 "      'password' = '000000'\n" +
                 ")";
