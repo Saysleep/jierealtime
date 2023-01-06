@@ -1,19 +1,12 @@
 package com.jie.bigdata.realtime.app.ods;
 
-
-/*import com.ververica.cdc.connectors.mysql.source.MySqlSource;
-import com.ververica.cdc.connectors.mysql.table.StartupOptions;*/
-import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
-import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
-import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
 import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.StatementSet;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-
 import static com.jie.bigdata.realtime.utils.Constant.*;
 import static com.jie.bigdata.realtime.utils.SomeSql.*;
 
@@ -23,18 +16,12 @@ public class OdsMesTotal {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
-//
-        //// TODO 2. 状态后端设置
+
+        // TODO 2. 状态后端设置
         env.enableCheckpointing(intervalCheckpoint, CheckpointingMode.EXACTLY_ONCE);
         env.getCheckpointConfig().setCheckpointTimeout(checkpointTimeout);
         env.getCheckpointConfig().setMinPauseBetweenCheckpoints(minPauseBetweenCheckpoints);
-       /* env.getCheckpointConfig().enableExternalizedCheckpoints(
-                CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION
-        );*/
         env.getCheckpointConfig().setExternalizedCheckpointCleanup(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
-        //env.setRestartStrategy(RestartStrategies.failureRateRestart(
-        //        failureRate, failureInterval, delayInterval
-        //));
         env.setRestartStrategy(RestartStrategies.fixedDelayRestart(restartAttempts,delayInterval));
         env.getCheckpointConfig().setTolerableCheckpointFailureNumber(100);
         env.setStateBackend(new HashMapStateBackend());
@@ -43,24 +30,7 @@ public class OdsMesTotal {
         );
         System.setProperty("HADOOP_USER_NAME", hadoopUserName);
 
-        //
-        //MySqlSource<String> mySqlSource = MySqlSource.<String>builder()
-        //        .hostname("10.0.0.15")
-        //        .port(3306)
-        //        .databaseList("jie_mdm")
-        //        .tableList("jie_mdm.task_cogroups") // set captured table
-        //        .username("root")
-        //        .password("123456")
-        //        .deserializer(new JsonDebeziumDeserializationSchema()) // converts SourceRecord to JSON String
-        //        .startupOptions(StartupOptions.initial())
-        //        .build();
-        //env.fromSource(mySqlSource, WatermarkStrategy.noWatermarks(), "config Source")
-        //        .setParallelism(1).print();
-        //env.execute();
-
         //TODO 3. 利用FlinkCDC读取MES数据 将所有所需表都同步过来
-        //tableEnv.executeSql(sourceSql0);
-        //tableEnv.sqlQuery("select * from tbl_test").execute().print();
         tableEnv.executeSql(sourceSql1);
         tableEnv.executeSql(sourceSql2);
         tableEnv.executeSql(sourceSql3);
@@ -89,10 +59,11 @@ public class OdsMesTotal {
         tableEnv.executeSql(sourceSql26);
         tableEnv.executeSql(sourceSql27);
         tableEnv.executeSql(sourceSql28);
+        tableEnv.executeSql(sourceSql29);
+        tableEnv.executeSql(sourceSql30);
+        tableEnv.executeSql(sourceSql31);
 
         //TODO 4. 读取doris的表
-        //tableEnv.executeSql(destinationSql0);
-        //tableEnv.sqlQuery("select * from doris_tbl_test").execute().print();
         tableEnv.executeSql(destinationSql1);
         tableEnv.executeSql(destinationSql2);
         tableEnv.executeSql(destinationSql3);
@@ -120,14 +91,9 @@ public class OdsMesTotal {
         tableEnv.executeSql(destinationSql25);
         tableEnv.executeSql(destinationSql26);
         //TODO 5. 插入数据
-
         //创建语句集
         StatementSet insertSet = tableEnv.createStatementSet();
-
         // 增加insert语句
-        //insertSet.addInsertSql("INSERT INTO doris_tbl_test SELECT ID,NAME,PID FROM tbl_test");
-
-
         insertSet.addInsertSql("INSERT INTO doris_ods_mes_management_employee_user SELECT\n" +
                 "  cast(USER_ID as string) USER_ID\n" +
                 ", USER_NAME\n" +
