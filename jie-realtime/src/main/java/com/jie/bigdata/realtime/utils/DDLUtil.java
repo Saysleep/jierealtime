@@ -1,5 +1,7 @@
 package com.jie.bigdata.realtime.utils;
 
+import java.sql.Time;
+
 public class DDLUtil {
     public static String getDorisDDL(String table){
         return  "    WITH (\n" +
@@ -9,7 +11,7 @@ public class DDLUtil {
                 "      'sink.enable-delete' = 'true',\n" +
                 "       'doris.batch.size' = '2048',\n" +
                 //"       'sink.enable-2pc' = 'true',\n" +
-                //"       'sink.label-prefix' = 'doris_mes',\n" +
+                "       'sink.label-prefix' = '" + table + "',\n" +
                 //"       'sink.properties.format' = 'json'," +
                 //"       'sink.properties.read_json_by_line' = 'true'," +
                 "      'username' = 'root',\n" +
